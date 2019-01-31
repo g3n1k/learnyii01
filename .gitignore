@@ -1,0 +1,14 @@
+logs/apache2/
+database/mariadb/*
+database/oracle/*
+logs/*
+nohup.out
+*.swp
+*-old
+*.old
+*.ovpn
+website/myAdmin
+website/templates/dashboards/
+!*.gitkeep
+SOURCE_APP
+tmp/

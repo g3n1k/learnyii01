@@ -1,0 +1,42 @@
+version: '3'
+services:
+  php-apache:
+    #~restart: always
+    build:
+      context: ./apache-php
+    ports:
+      - 80:80
+    volumes:
+      - ./website:/var/www/html
+      - ./logs/:/var/log/apache2
+      - ./tmp:/tmp
+    links:
+      - mariadb
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+    ports:
+      - "2006:80"
+    volumes:
+      - /sessions
+    links:
+      - mariadb
+
+  mariadb:
+    image: mariadb
+    #~restart: always
+    volumes:
+      - ./database/mariadb:/var/lib/mysql
+      - ./database/initdb/mariadb:/docker-entrypoint-initdb.d
+    ports:
+      - 3316:3306
+    environment:
+      TZ: "Asia/Jakarta"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+      MYSQL_ROOT_PASSWORD: "rootpwd"
+#      MYSQL_USER: 'userdb'
+#      MYSQL_PASSWORD: 'passworddb'
+#      MYSQL_DATABASE: 'cms_minduk'
