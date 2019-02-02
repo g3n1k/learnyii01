@@ -9,7 +9,6 @@ services:
     volumes:
       - ./website:/var/www/html
       - ./logs/:/var/log/apache2
-      - ./tmp:/tmp
     links:
       - mariadb
 
